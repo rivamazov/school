@@ -77,6 +77,7 @@ int main(int argc,char* argv[])
   std::pair<int,int> pnt = std::make_pair(4,5);
 
   matrix[pnt.first][pnt.second] = -1;
+  std::cout << "pnt is "  << pnt.first;
 
 
   return 0;
