@@ -2,6 +2,7 @@
 
 void recur<T>::cartesianProduct(std::vector< std::vector< char> > &inputSet,
       int position,std::vector< std::vector< char> > &outSet) {
+	return;
 
 }
 
