@@ -1,6 +1,10 @@
 #ifndef RECUR_H_
 #define RECUR_H_
 
+#include <algorithm>
+#include <utility>
+#include <iostream>
+
 void cartesianProduct(std::vector< std::vector< char> > &inputSet,
   int position, std::vector<char> &outSet);
 int findMin(std::vector< std::vector< int > > &inputSet, std::pair< int,int> &position);
@@ -9,4 +13,4 @@ void replaceLimit(std::vector< std::vector < int> > &inputSet,std::pair< int,int
 
 #include "recur.cpp"
 
-#endif;
+#endif

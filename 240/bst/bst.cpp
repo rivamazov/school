@@ -8,7 +8,7 @@ void bst::insert(double dta) {
 	}
 	else
 	{
-
+		bst::insert(root, dta);
 	}
 }
 
