@@ -19,10 +19,9 @@ void cartesianProduct(std::vector< std::vector< char> > &inputSet,
 }
 
 int findMin(std::vector< std::vector< int > > &inputSet, 
-  std::pair< int,int> &position) {
 	int min = std::numeric_limits<int>::max();
 	if (position==inputSet.size()-1) {
-		return min;
+		return 0  ;
 	}
 	for (auto setData : inputSet[position]) {
 		findMin(inputSet, position+1)

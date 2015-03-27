@@ -15,7 +15,12 @@ class bst
   void inorder();
   void preorder();
   void postorder();
+  double sumLeaves();
   int numLeaves();
+  int balanceFactor();
+  void maxHeight(node* nd);
+  void cleanBst();
+  ~bst();
 
  private:
   node* root;
@@ -23,7 +28,9 @@ class bst
   void inorder(node* nd);
   void preorder(node* nd);
   void postorder(node* nd);
+  double sumLeaves(node* nd);
   int numLeaves(node* nd);
+  void cleanBst(node* nd);
 
 };
 

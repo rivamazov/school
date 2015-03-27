@@ -87,6 +87,24 @@ void bst::postorder(node* nd)
 	std::cout << nd->data << std::endl;
 }
 
+double bst::sumLeaves()
+{
+	if (root==nullptr) return 0;
+	return sumLeaves(root);
+}
+
+double bst::sumLeaves(node* nd)
+{
+	if (nd==nullptr) return 0;
+	if (nd->right==nullptr && nd->left==nullptr)
+	{
+		std::cout << nd->data << std::endl;
+		return nd->data;
+	}
+	return sumLeaves(nd->right)+sumLeaves(nd->left);
+	//return 0;
+}
+
 int bst::numLeaves()
 {
 	if (root==nullptr) return 0;
@@ -103,4 +121,32 @@ int bst::numLeaves(node* nd)
 	int left = numLeaves(nd->left);
 
 	return left+right;
+}
+
+int bst::balanceFactor()
+{
+
+}
+
+void bst::maxHeight(node* nd)
+{
+	int right = nd->right->data;
+	int left = nd->left->data;
+
+	//nd->height = std::max(left,right)+1;
+}
+
+void bst::cleanBst(node* nd)
+{
+	if (nd != nullptr)
+	{
+		cleanBst(nd->left);
+		cleanBst(nd->right);
+		delete nd;
+	}
+}
+
+bst::~bst()
+{
+	cleanBst(root);
 }
