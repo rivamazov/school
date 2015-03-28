@@ -21,6 +21,11 @@ class bst
   int size();
   node* find(double dta);
   node* closestToK(double k);
+  node* min();
+  node* max();
+  void printDepthFirst();
+  void printBreadthFirst();
+  bool isBinarySearchTree();
   int balanceFactor();
   void maxHeight(node* nd);
   void cleanBst();
@@ -38,6 +43,9 @@ class bst
   int size(node* nd);
   node* find(node* nd, double dta);
   node* closestToK(node* nd, double k);
+  node* min(node* nd);
+  node* max(node* nd);
+  bool isBinarySearchTree(node* nd, double min, double max);
   void cleanBst(node* nd);
 
 };

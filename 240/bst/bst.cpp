@@ -197,8 +197,32 @@ node* bst::closestToK(double k)
 node* bst::closestToK(node* nd, double k)
 {
 	if (nd==nullptr) return nullptr;
-	
+	// /abs(nd->data - k)
+	//double min = (abs(nd->data - k) < closestToK(nd->left)) ?  
+}
 
+node* bst::min()
+{
+	if (root==nullptr) return nullptr;
+	return min(root);
+}
+
+node* bst::min(node* nd)
+{
+	if (nd->left == nullptr) return nd;
+	else min(nd->left);
+}
+
+node* bst::max()
+{
+	if (root==nullptr) return nullptr;
+	return max(root);
+}
+
+node* bst::max(node* nd)
+{
+	if (nd->right==nullptr) return nd;
+	else max(nd->right);
 }
 
 int bst::balanceFactor()
