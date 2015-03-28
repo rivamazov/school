@@ -19,8 +19,8 @@ int main()
   std::cout << mapple.find(0) << std::endl;
   std::cout << mapple.find(13) << std::endl;
   std::cout << mapple.min() << std::endl;
-  std::cout << mapple.find(17) << std::endl;
-  std::cout << mapple.max() << std::endl;
+  std::cout << mapple.find(234) << std::endl;
+  std::cout << mapple.closestToK(233);
 
 
   return 0;

@@ -188,7 +188,7 @@ node* bst::find(node* nd, double dta)
 	return nullptr;
 }
 
-node* bst::closestToK(double k)
+node* bst::closestToK(double k) //make sure to check if root
 {
 	if (root==nullptr) return nullptr;
 	return closestToK(root, k);
@@ -197,8 +197,16 @@ node* bst::closestToK(double k)
 node* bst::closestToK(node* nd, double k)
 {
 	if (nd==nullptr) return nullptr;
-	// /abs(nd->data - k)
-	//double min = (abs(nd->data - k) < closestToK(nd->left)) ?  
+	if (nd->left == nullptr && nd->right==nullptr) return nd; 
+	if (nd->left == nullptr) {
+		closestToK(nd->right, k);
+	}
+	if (nd->right == nullptr) {
+		closestToK(nd->left, k);
+	}
+	node* tmp = (abs(closestToK(nd->right, k)->data-k) <= abs(closestToK(nd->left, k)->data-k)) ? nd->right : nd->left;
+	
+
 }
 
 node* bst::min()
