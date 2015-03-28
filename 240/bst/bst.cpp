@@ -98,11 +98,9 @@ double bst::sumLeaves(node* nd)
 	if (nd==nullptr) return 0;
 	if (nd->right==nullptr && nd->left==nullptr)
 	{
-		std::cout << nd->data << std::endl;
 		return nd->data;
 	}
 	return sumLeaves(nd->right)+sumLeaves(nd->left);
-	//return 0;
 }
 
 int bst::numLeaves()
@@ -115,11 +113,8 @@ int bst::numLeaves(node* nd)
 {
 	if (nd==nullptr) return 0;
 	if (nd->right==nullptr && nd->left==nullptr) return 1;
-	//return numLeaves(nd->left) + numLeaves(nd->right);
-
 	int right = numLeaves (nd->right);
 	int left = numLeaves(nd->left);
-
 	return left+right;
 }
 
@@ -132,30 +127,6 @@ void bst::reverse()
 void bst::reverse(node* nd)
 {
 	if (nd==nullptr) return;
-	/*if(nd->left!=nullptr && nd->right!=nullptr) {
-		std::swap(nd->left,nd->right);
-		reverse(nd->left);
-		reverse(nd->right);
-	}
-	if (nd->left==nullptr && nd->right != nullptr)
-	{
-		nd->left = new node(nd->right->data);
-		nd->left->left = nd->right->left;
-		nd->left->right = nd->right->right;
-		delete nd->right;
-		nd->right=nullptr;
-		reverse(nd->left);
-	}
-	else if (nd->right==nullptr && nd->left != nullptr)
-	{
-		nd->right = new node(nd->left->data);
-		nd->right->left = nd->left->left;
-		nd->right->right = nd->left->right;
-		delete nd->left;
-		nd->left=nullptr;
-		reverse(nd->right);
-	}
-	*/
 	std::swap(nd->left,nd->right);
 	reverse(nd->left);
 	reverse(nd->right);
@@ -200,11 +171,16 @@ node* bst::closestToK(node* nd, double k)
 	if (nd->left == nullptr && nd->right==nullptr) return nd; 
 	if (nd->left == nullptr) {
 		closestToK(nd->right, k);
+		return nd;
 	}
 	if (nd->right == nullptr) {
 		closestToK(nd->left, k);
+		return nd;
 	}
-	node* tmp = (abs(closestToK(nd->right, k)->data-k) <= abs(closestToK(nd->left, k)->data-k)) ? nd->right : nd->left;
+	//if ((abs(nd->right)->data-k) <= abs((nd->left)->data-k)) ? closestToK(nd->r)
+	closestToK(nd->right, k);
+	closestToK(nd->left, k);
+	return (abs(closestToK(nd->right, k)->data-k) <= abs(closestToK(nd->left, k)->data-k)) ? nd->right : nd->left;
 	
 
 }
@@ -233,17 +209,65 @@ node* bst::max(node* nd)
 	else max(nd->right);
 }
 
-int bst::balanceFactor()
+void bst::printDepthFirst()
 {
-
+	std::stack <node*> stk;
+	node* tmp = root;
+	stk.push(root);
+	while (!stk.empty())
+	{
+		tmp = stk.top();
+		stk.pop();
+		if (tmp->right!=nullptr) stk.push(tmp->right);
+		if (tmp->left!=nullptr) stk.push(tmp->left);
+		std::cout << tmp->data << std::endl;
+	}
 }
 
-void bst::maxHeight(node* nd)
+void bst::printBreadthFirst()
 {
-	int right = nd->right->data;
-	int left = nd->left->data;
+	std::queue <node*> que;
+	node* tmp = root;
+	que.push(root);
+	while (!que.empty())
+	{
+		tmp = que.front();
+		que.pop();
+		if (tmp->left!=nullptr) que.push(tmp->left);
+		if (tmp->right!=nullptr) que.push(tmp->right);
+		std::cout << tmp->data << std::endl;
+	}
+}
 
-	//nd->height = std::max(left,right)+1;
+bool bst::isBinarySearchTree(){
+	if (root==nullptr) return false;
+	return isBinarySearchTree(root, std::numeric_limits<double>::min(), 
+		std::numeric_limits<double>::max());
+}
+
+bool bst::isBinarySearchTree(node* nd, double min, double max)
+{
+	if (nd==nullptr) return true;
+	if (nd->data > min 
+		&& nd->data < max 
+		&& isBinarySearchTree(nd->right, nd->data, max) 
+		&& isBinarySearchTree(nd->left,min,nd->data))
+		return true;
+	else return false;
+}
+
+int bst::maxHeight()
+{
+	return maxHeight(root);
+}
+
+int bst::maxHeight(node* nd)
+{
+	if (nd==nullptr) return -1;
+	int left = maxHeight(nd->left);
+	int right = maxHeight(nd->right);
+
+	return std::max(left,right)+1;
 }
 
 void bst::cleanBst(node* nd)

@@ -4,6 +4,9 @@
 #include <iostream>
 #include <utility>
 #include <algorithm>
+#include <stack>
+#include <queue>
+#include <limits>
 
 #include "node.h"
 
@@ -27,7 +30,7 @@ class bst
   void printBreadthFirst();
   bool isBinarySearchTree();
   int balanceFactor();
-  void maxHeight(node* nd);
+  int maxHeight();
   void cleanBst();
   ~bst();
 
@@ -46,6 +49,7 @@ class bst
   node* min(node* nd);
   node* max(node* nd);
   bool isBinarySearchTree(node* nd, double min, double max);
+  int maxHeight(node* nd);
   void cleanBst(node* nd);
 
 };

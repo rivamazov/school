@@ -6,9 +6,12 @@ int main()
 	bst mapple;
 	mapple.insert(15);
 	mapple.insert(13);
+  mapple.insert(14);
+  mapple.insert(12);
 	mapple.insert(16);
 	mapple.insert(17);
 	mapple.insert(234);
+  mapple.insert(2);
 	mapple.inorder();
 	std::cout << mapple.numLeaves() << std::endl;
 	std::cout << mapple.sumLeaves() << std::endl;
@@ -19,8 +22,14 @@ int main()
   std::cout << mapple.find(0) << std::endl;
   std::cout << mapple.find(13) << std::endl;
   std::cout << mapple.min() << std::endl;
-  std::cout << mapple.find(234) << std::endl;
-  std::cout << mapple.closestToK(233);
+  std::cout << mapple.find(234)->data << std::endl;
+  mapple.printBreadthFirst();
+  std::cout << std::endl;
+  mapple.printDepthFirst();
+  std::cout << mapple.isBinarySearchTree() << std::endl;
+  mapple.reverse();
+  std::cout << mapple.isBinarySearchTree() << std::endl;
+
 
 
   return 0;
