@@ -123,6 +123,84 @@ int bst::numLeaves(node* nd)
 	return left+right;
 }
 
+void bst::reverse()
+{
+	if (root==nullptr) return;
+	reverse(root);
+}
+
+void bst::reverse(node* nd)
+{
+	if (nd==nullptr) return;
+	/*if(nd->left!=nullptr && nd->right!=nullptr) {
+		std::swap(nd->left,nd->right);
+		reverse(nd->left);
+		reverse(nd->right);
+	}
+	if (nd->left==nullptr && nd->right != nullptr)
+	{
+		nd->left = new node(nd->right->data);
+		nd->left->left = nd->right->left;
+		nd->left->right = nd->right->right;
+		delete nd->right;
+		nd->right=nullptr;
+		reverse(nd->left);
+	}
+	else if (nd->right==nullptr && nd->left != nullptr)
+	{
+		nd->right = new node(nd->left->data);
+		nd->right->left = nd->left->left;
+		nd->right->right = nd->left->right;
+		delete nd->left;
+		nd->left=nullptr;
+		reverse(nd->right);
+	}
+	*/
+	std::swap(nd->left,nd->right);
+	reverse(nd->left);
+	reverse(nd->right);
+}
+
+int bst::size()
+{
+	if (root==nullptr) return 0;
+	return size(root);
+}
+
+int bst::size(node* nd)
+{
+	if (nd==nullptr) return 0;
+	return 1+size(nd->right)+size(nd->left);
+}
+
+node* bst::find(double dta)
+{
+	if (root==nullptr) return nullptr;
+	return find(root, dta);
+}
+
+node* bst::find(node* nd, double dta)
+{
+	if (nd==nullptr) return nullptr;
+	if (nd->data==dta) return nd;
+	else if (dta < nd->data) return find(nd->left, dta);
+	else return find(nd->right, dta);
+	return nullptr;
+}
+
+node* bst::closestToK(double k)
+{
+	if (root==nullptr) return nullptr;
+	return closestToK(root, k);
+}
+
+node* bst::closestToK(node* nd, double k)
+{
+	if (nd==nullptr) return nullptr;
+	
+
+}
+
 int bst::balanceFactor()
 {
 

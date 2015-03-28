@@ -17,6 +17,10 @@ class bst
   void postorder();
   double sumLeaves();
   int numLeaves();
+  void reverse();
+  int size();
+  node* find(double dta);
+  node* closestToK(double k);
   int balanceFactor();
   void maxHeight(node* nd);
   void cleanBst();
@@ -30,6 +34,10 @@ class bst
   void postorder(node* nd);
   double sumLeaves(node* nd);
   int numLeaves(node* nd);
+  void reverse(node* nd);
+  int size(node* nd);
+  node* find(node* nd, double dta);
+  node* closestToK(node* nd, double k);
   void cleanBst(node* nd);
 
 };
