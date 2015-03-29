@@ -20,7 +20,7 @@ void stack<T>::pop()
 }
 
 template <class T>
-T& stack<T>::top()
+T& stack<T>::front()
 {
 	return dlinklist<T>::front();
 }
@@ -42,7 +42,22 @@ unsigned int stack<T>::size()
 template <class T>
 bool stack<T>::isPalindrome(dlinklist<T> &dll,stack<T> &stk)
 {
-
+  string palVal = "";
+  stack<T> tmp;
+  while(!stk.empty())
+  {
+    palVal.insert(0, stk.front());
+    tmp.push(stk.front());
+    stk.pop();
+  }
+  while (!tmp.empty())
+  {
+    stk.push(tmp.front());
+    tmp.pop();
+  }
+  string revPal(palVal.rbegin(), palVal.rend());
+  if (revPal==palVal) return true;
+  else return false;
 }
 
 template <class T>
@@ -53,13 +68,13 @@ unsigned int stack<T>::romanNumber(stack<T> &stk)
 	stack<T> tmp;
 	while(!stk.empty())
 	{
-		romanVal.insert(0, stk.top());
-		tmp.push(stk.top());
+		romanVal.insert(0, stk.front());
+		tmp.push(stk.front());
 		stk.pop();
 	}
 	while (!tmp.empty())
 	{
-		stk.push(tmp.top());
+		stk.push(tmp.front());
 		tmp.pop();
 	}
 	int index = 0;
@@ -78,9 +93,6 @@ unsigned int stack<T>::romanNumber(stack<T> &stk)
     index++;
 	}
 	return decVal;
-	
-
-
 
 }
 
@@ -105,13 +117,13 @@ std::ostream& operator<< (std::ostream &out,stack<U> &stk)
 	stack<U> tmp;
 	while(!stk.empty())
 	{
-		out << stk.top() << std::endl;
-		tmp.push(stk.top());
+		out << stk.front() << std::endl;
+		tmp.push(stk.front());
 		stk.pop();
 	}
 	while (!tmp.empty())
 	{
-		stk.push(tmp.top());
+		stk.push(tmp.front());
 		tmp.pop();
 	}
 	return out;

@@ -42,6 +42,25 @@ unsigned int queue<T>::size()
 template <class T>
 bool queue<T>::isPalindrome(dlinklist<T> &dll,queue<T> &que)
 {
+  string palVal = "";
+  queue<T> tmp;
+  while(!que.empty())
+  {
+    palVal+=que.front();
+    tmp.push(que.front());
+    que.pop();
+  }
+  while (!tmp.empty())
+  {
+    que.push(tmp.front());
+    tmp.pop();
+  }
+  string revPal(palVal.rbegin(), palVal.rend());
+  cout << revPal;
+  cout << palVal;
+  if (revPal==palVal) return true;
+  else return false;
+
 
 }
 

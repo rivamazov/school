@@ -1,0 +1,25 @@
+Lab 1
+
+Due: February 12 2015 at 11:59pm 
+You are to complete the following functions for the array class. The initial skeleton for this code can be found on the class website. Many of these functions were covered in lecture so there shouldn't be to many curve balls here. Once you have finished the lab be sure to throughly test your code before you submit it to blackboard. When submitting make sure you follow proper submission procedure. If you feel that you need to add any additional variables or helper functions to the class you may do so.
+
+create a default constructor that initializes the variable numElements to 0 and the pointer data to nullptr
+
+create a constructor with the following definition: array(const int sz). This constructor will set the variable numElements equal to sz. It will also dynamically allocate space for an array of ints with the size of the array being equal to sz. Finally set the memory address returned from the call to new equal to the pointer data. All of this should be done in the constructors initializer list.
+
+Create a default destructor. The destructor should delete any memory that has been dynamically allocated so there are no memory leaks. NOTE: if memory has not been dynamically allocated then you should not delete anything.
+
+Create a function with the following definition: int size(). This function will return the variable numElements.
+
+Create a function with the following definition: int sumData(). This function will sum all of the integers that are in the data array and return the sum.
+
+Create a function with the following definition: void reSize(const unsigned int sz). This function will resize the array to the new value sz. If the array has no size, due to being default constructed, then set the pointer data to the new'ed array and set numElements equal to sz. However if the array already has a size and integers in it, then you will need to copy the old elements over to the new array. Caution, the array could also be given a smaller size through this function. If that is the case then remove the elements from the end of the original array. For example if the size was 5 and it was reSize'd to 3, then the elements 0,1 and 2 would be copied over while 3 and 4 would be not be.
+
+Overload the following operator with the given definition: int& operator[](const int index). When this operator is called it will return a reference to the integer at the input index. Be sure to check that the index value that is input is not greater then the largest index in the array. If it is then return a reference to the integer at the last index
+
+Overload the following operator with the given definition: std::ostream& operator<<(std::ostream &out,const array &arr). When the following operator is called it will first print out the variable numElements on a single line. Then it will print out each of each elements in the data array on a single line. The example output of an array object with a size of 3 the is following. Note, not all elements in the array have to be set. 
+3
+0
+1
+2
+

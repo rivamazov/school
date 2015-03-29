@@ -46,6 +46,13 @@ int main()
   rom.push("I");*/
 
   std::cout << rom.romanNumber(rom) << std::endl;
+
+  queue<string> pal;
+  pal.push("a");
+  pal.push("b");
+  pal.push("b");
+  dlinklist<string> dll;
+  std::cout << pal.isPalindrome(dll, pal);
   
   return 0;
 

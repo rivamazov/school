@@ -14,7 +14,7 @@ int main()
   s.push(5);
   s.push(6);
   s.push(7);
-  std::cout << s.top() << "is empty " << s.empty() 
+  std::cout << s.front() << "is empty " << s.empty() 
     << "size: " << s.size() << std::endl;
   stack<string> rom;
   rom.push("M");
@@ -34,6 +34,13 @@ int main()
   rom.push("I");
 
   std::cout << rom.romanNumber(rom) << std::endl;
+
+  stack<string> pal;
+  pal.push("a");
+  pal.push("b");
+  pal.push("a");
+  dlinklist<string> dll;
+  std::cout << pal.isPalindrome(dll, pal);
 
 
   return 0;

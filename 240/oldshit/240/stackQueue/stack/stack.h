@@ -10,17 +10,12 @@ class stack : public dlinklist<T>
 {
  public:
  stack():numElements(0){}
-  ~stack(){numElements=0;dlinklist<T>::~dlinklist();}
+  ~stack(){}
   void push(T data);
   void pop();
-  T& front();
+  T& top();
   bool empty();
   unsigned int size();
-
-  bool isPalindrome(dlinklist<T> &dll,stack<T> &stk);
-  unsigned int romanNumber(stack<T> &stk);
-  unsigned int getNumeralAmount(char let);
-
   template <class U>
     friend std::ostream& operator<< (std::ostream &out,stack<U> &stk);
  private:

@@ -1,0 +1,17 @@
+this is a pointer to current object.
+good idea to use it for class variables ie.
+return this->numElements;
+A*B*C use move to edit a value.
+
+lab overload a[1]
+this refers to a
+a+b
+see operator+ for &rhs example
+when an overload is a member function have access to private data
+when you return a reference dereference this (*this) and return it.
+
+<< operator always comes before the object
+as a result you do not have access to rhs private variables
+shallow copy is a shared pointer
+deep copy - sets up its own data array
+if you do not declare copy constructor all it will do is share pointers.
