@@ -4,6 +4,7 @@
 #include <limits>
 #include <utility>
 #include <algorithm>
+#include "recur.h"
 
 
 int rec(int value);
@@ -60,9 +61,9 @@ int main(int argc,char* argv[])
   //now you can access any element in the matrix
 
   //element 0,0
-  matrix[0][0] = 100;
+  matrix[0][0] = 2;
   //element 9,9 or the 100 element in the matrix
-  matrix[9][9] = 5;
+  matrix[9][9] = -3;
   
   //fill all elements with 1
   for(int i = 0; i < 10; i++)
@@ -74,10 +75,28 @@ int main(int argc,char* argv[])
     }
   
   //use a std::pair to get elements
-  std::pair<int,int> pnt = std::make_pair(4,5);
+  std::pair<int,int> pnt = std::make_pair(0,0);
 
-  matrix[pnt.first][pnt.second] = -1;
-  std::cout << "pnt is "  << pnt.first;
+  //std::cout << matrix[4][5];
+  std::vector<char> outSet;
+
+  std::vector<std::vector<char> > matrix2;
+  matrix2.resize(3);
+  matrix2[0].resize(2);
+  matrix2[1].resize(1);
+  matrix2[2].resize(2);
+
+  matrix2[0][0] = 'a';
+  matrix2[0][1] = 'b';
+  matrix2[1][0] = '1';
+  matrix2[2][0] = 'x';
+  matrix2[2][1] = 'y';
+  std::cout << matrix2[0].size();
+
+
+
+  cartesianProduct(matrix2, 0, outSet);
+  std::cout << findMin(matrix, pnt);
 
 
   return 0;
