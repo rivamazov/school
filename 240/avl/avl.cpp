@@ -16,7 +16,7 @@ void avl::insert(node *nd,double dta) {
       nd->right = newNode;
       newNode->parent = nd;
       nd->height = height(nd);
-      std::cout << nd->right->data << " nodes height is" << nd->height << std::endl;
+      std::cout << nd->data << "balance favtor " << balanceFactor(nd) << std::endl;
       return;
     }
     else {
@@ -30,7 +30,7 @@ void avl::insert(node *nd,double dta) {
       nd->left = newNode;
       newNode->parent = nd;
       nd->height = height(nd);
-      std::cout << nd->left->data << " nodes height is" << nd->height << std::endl;
+      std::cout << nd->data << "balance favtor " << balanceFactor(nd) << std::endl;
       return;
     }
     else {
@@ -43,27 +43,23 @@ void avl::insert(node *nd,double dta) {
 }
 
 int avl::balanceFactor() {
-  if (root->left || root->right) balanceFactor(root);
+  if (root->left!=nullptr || root->right!=nullptr) balanceFactor(root);
   else return 0;
 }
 
 int avl::balanceFactor(node* nd) {
-  int lft = (nd->left==nullptr) ? 0 : nd->left->height;
-  int rht = (nd->right==nullptr) ? 0 : nd->right->height;
-  return rht-lft;
+  int lft = (nd->left==nullptr) ? 0 : height(nd->left);
+  int rht = (nd->right==nullptr) ? 0 : height(nd->right);
+  return lft-rht;
 }
 
-int avl::height()
-{
+int avl::height() {
   return height(root);
 }
 
 int avl::height(node* nd) {
   if (nd==nullptr) return -1;
-  int left = height(nd->left);
-  int right = height(nd->right);
-
-  return std::max(left,right)+1;
+  return std::max(height(nd->left),height(nd->right))+1;
 }
 
 void avl::printDepthFirst() {
