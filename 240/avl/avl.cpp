@@ -16,7 +16,7 @@ void avl::insert(node *nd,double dta) {
       nd->right = newNode;
       newNode->parent = nd;
       nd->height = height(nd);
-      std::cout << nd->data << "balance favtor " << balanceFactor(nd) << std::endl;
+      if (nd.balanceFactor() > 1 || nd->balanceFactor()
       return;
     }
     else {
