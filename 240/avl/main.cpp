@@ -10,7 +10,9 @@ int main()
 	a.insert(40);
 	a.insert(41);
 	std::cout << a.balanceFactor();
-	std::cout<< a.height();
+	std::cout<< a.height() << std::endl;
+	std::cout << a.height(a.find(28)) << std::endl;
+
 
   return 0;
 }

@@ -12,9 +12,11 @@ class avl
  public:
    avl():root(nullptr){}
   void insert(double dta);
+  node* find(double dta);
   void rotate();
   int balanceFactor();
   int height();
+  int height(node* nd);
   void printBreadthFirst();
   void printDepthFirst();
   ~avl();
@@ -22,8 +24,8 @@ class avl
  private:
   void insert(node* nd,double dta);
   void rotate(node* nd);
+  node* find(node* nd, double dta);
   int balanceFactor(node* nd);
-  int height(node* nd);
   void cleanAvl(node* nd);
   node* root;
 };

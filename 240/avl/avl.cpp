@@ -42,6 +42,21 @@ void avl::insert(node *nd,double dta) {
   if (balanceFactor() > 2) ;// calculate me
 }
 
+node* avl::find(double dta)
+{
+  if (root==nullptr) return nullptr;
+  return find(root, dta);
+}
+
+node* avl::find(node* nd, double dta)
+{
+  if (nd==nullptr) return nullptr;
+  if (nd->data==dta) return nd;
+  else if (dta < nd->data) return find(nd->left, dta);
+  else return find(nd->right, dta);
+  return nullptr;
+}
+
 int avl::balanceFactor() {
   if (root->left!=nullptr || root->right!=nullptr) balanceFactor(root);
   else return 0;
