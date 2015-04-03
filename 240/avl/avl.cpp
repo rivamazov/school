@@ -4,7 +4,6 @@ void avl::insert(double dta) {
   if(root == nullptr) {
       node *nd = new node(dta);
       root = nd;
-      root->height = 1;
   }
   else insert (root, dta);
 }
@@ -16,9 +15,10 @@ void avl::insert(node *nd,double dta) {
       node *newNode = new node(dta);
       nd->right = newNode;
       newNode->parent = nd;
-      nd->height = height(nd); //try nd->height++ for speed
-      if (std::abs(balanceFactor()) == 2) 
+      if (std::abs(balanceFactor()) == 2) {
         rotate(nd->parent);
+      }
+      else nd->height=height(nd);
       return;
     }
     else {
@@ -31,10 +31,11 @@ void avl::insert(node *nd,double dta) {
       node *newNode = new node(dta);
       nd->left = newNode;
       newNode->parent = nd;
-      nd->height = height(nd); //try nd->height++ for speed
       if (std::abs(balanceFactor()) == 2) {
         rotate(nd->parent);
+        nd->height = height(nd);
       }
+      else nd->height=height(nd);
       return;
     }
     else {
@@ -66,54 +67,62 @@ void avl::rotate() {
 
 
 void avl::rotate(node* nd) {
-  std::cout << "entering rotate " << nd->data << balanceFactor(nd) << std::endl;
+  if(nd==nullptr) return;
   if (balanceFactor(nd)==2) { //right heavy
-    std::cout << "semi-success";
     if (balanceFactor(nd->right)==1)
       rotateLeft(nd);
-    else {
-      rotateRight(nd);
+    else { //double left
+      rotateRight(nd->right);
       rotateLeft(nd);
     }   
   }
   else if (balanceFactor(nd)==-2) { //left heavy
     if (balanceFactor(nd->left)==-1) {
-      std::cout << "rotating right\n";
       rotateRight(nd);
     }
-    else {
-      std::cout << "double right!" << std::endl;
-      node* tpm = rotateLeft(nd);
+    else { //double right
+      rotateLeft(nd->left);
       rotateRight(nd);
     }
   }
+  nd->height = height(nd);
+  rotate(nd->parent);
 }
 
-node* avl::rotateLeft(node* nd) {
-  node* oldRight = nd->right;
-  nd->right = nd->right->left;
-  if (nd->parent == nullptr)
-    root = oldRight;
-  else if (nd->parent->right == nd)
-    nd->parent->right = oldRight;
+void avl::rotateLeft(node* nd) {
+  node* tmp = nd->right;
+  nd->right = tmp->left;
+  if (tmp->left != nullptr)
+    tmp->left->parent = nd; //reset left child parent
+  if (nd->parent == nullptr) {
+    root = tmp;
+    tmp->parent = nullptr;
+  }
+  else if (nd->parent->left == nd) //if was the left child of its parent
+    nd->parent->left = tmp; //make tmp new left child
   else
-    nd->parent->left = oldRight;
-  oldRight->left = nd;
-  return nd->parent;
+    nd->parent->right = tmp; //make tmp the new right child
+  tmp->left = nd;
+  nd->parent = tmp;
 }
 
 
-node* avl::rotateRight(node* nd) {
-  node* oldLeft = nd->left;
-  nd->left = nd->left->right;
-  if (nd->parent == nullptr)
-    root = oldLeft;
-  else if (nd->parent->left == nd)
-    nd->parent->left = oldLeft;
+void avl::rotateRight(node* nd) {
+  node* tmp = nd->left;
+  nd->left = tmp->right;
+  if (tmp->right != nullptr)
+    tmp->right->parent = nd; //reset right child parent
+  if (nd->parent == nullptr) {//if nd is root
+    root = tmp;
+    tmp->parent = nullptr;
+  }
+  else if (nd->parent->left == nd) //if was the left child of its parent
+    nd->parent->left = tmp; //make tmp new left child
   else
-    nd->parent->right = oldLeft;
-  oldLeft->right = nd;
-  return nd->parent;
+    nd->parent->right = tmp; //make tmp the new right child
+
+  tmp->right = nd; //move n to right child of tmp
+  nd->parent = tmp;
 }
 
 int avl::balanceFactor() {

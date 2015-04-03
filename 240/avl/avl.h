@@ -24,8 +24,8 @@ class avl
  private:
   void insert(node* nd,double dta);
   void rotate(node* nd);
-  node* rotateLeft(node* nd);
-  node* rotateRight(node* nd);
+  void rotateLeft(node* nd);
+  void rotateRight(node* nd);
   node* find(node* nd, double dta);
   int balanceFactor(node* nd);
   void cleanAvl(node* nd);
