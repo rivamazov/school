@@ -88,6 +88,8 @@ void avl::rotate(node* nd) {
   }
   if (balanceFactor()>1 || balanceFactor()<-1)
     return;
+  //andre is
+  //a faggut
   //rotate(nd->parent->parent);
 }
 
