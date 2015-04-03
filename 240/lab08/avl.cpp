@@ -26,7 +26,7 @@ void avl::insert(node *nd,double dta) {
       return;
     }
   }
-  else {
+  else if (dta < nd->data) {
     if(nd->left == nullptr) {
       node *newNode = new node(dta);
       nd->left = newNode;
@@ -43,6 +43,7 @@ void avl::insert(node *nd,double dta) {
       return;
     }
   }
+  return;
 }
 
 node* avl::find(double dta)
@@ -72,7 +73,7 @@ void avl::rotate(node* nd) {
     if (balanceFactor(nd->right)==1)
       rotateLeft(nd);
     else { //double left
-      rotateRight(nd->right);
+      rotateRight(nd->parent);
       rotateLeft(nd);
     }   
   }
@@ -85,8 +86,9 @@ void avl::rotate(node* nd) {
       rotateRight(nd);
     }
   }
-  nd->height = height(nd);
-  rotate(nd->parent);
+  if (balanceFactor()>1 || balanceFactor()<-1)
+    return;
+  //rotate(nd->parent->parent);
 }
 
 void avl::rotateLeft(node* nd) {

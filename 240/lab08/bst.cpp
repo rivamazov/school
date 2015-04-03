@@ -41,6 +41,7 @@ void bst::insert(node* nd, double dta) {
 			return;
 		}
 	}
+	return;
 }
 
 void bst::inorder()

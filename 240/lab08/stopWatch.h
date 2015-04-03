@@ -7,7 +7,7 @@
 class stopWatch
 {
  public:
-  stopWatch();
+  stopWatch(){};
   void start();
   void stop();
   friend std::ostream& operator<<(std::ostream &out,stopWatch &st);
