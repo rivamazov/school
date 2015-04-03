@@ -1,13 +1,13 @@
 all:main
 
 main: avl.o main.o stopWatch.o generator.o
-	g++ -std=c++11 avl.o main.o -o main
+	g++ -g -std=c++11 avl.o main.o -o main
 
 main.o: main.cpp 
-	g++ -std=c++11 -c main.cpp
+	g++ -g -std=c++11 -c main.cpp
 
 avl.o: avl.cpp avl.h
-	g++ -std=c++11 -c avl.cpp
+	g++ -g -std=c++11 -c avl.cpp
 
 stopWatch.o: stopWatch.cpp stopWatch.h
 	g++ -std=c++11 -c stopWatch.cpp

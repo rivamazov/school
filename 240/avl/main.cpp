@@ -3,15 +3,19 @@
 int main()
 {
 	avl a;
-	a.insert(24);
-	a.insert(15);
-	a.insert(28);
-	a.insert(42);
-	a.insert(40);
-	a.insert(41);
-	std::cout << a.balanceFactor();
-	std::cout<< a.height() << std::endl;
-	std::cout << a.height(a.find(28)) << std::endl;
+	a.insert(3);
+	a.insert(1);
+  a.insert(2);
+  //a.insert(13);
+	//a.insert(28);
+	//a.insert(13);
+  
+	//a.insert(13);
+	//a.insert(41);
+	std::cout << "bfctor" << a.balanceFactor() << std::endl;
+	std::cout<< "tree height" << a.height() << std::endl;
+	std::cout << "height" << a.height(a.find(42)) << std::endl;
+  std::cout << a.find(2)->left->data;
 
 
   return 0;
