@@ -15,8 +15,8 @@ void avl::insert(node *nd,double dta) {
       node *newNode = new node(dta);
       nd->right = newNode;
       newNode->parent = nd;
-      if (std::abs(balanceFactor()) == 2) {
-        rotate(nd->parent);
+      if (std::abs(balanceFactor()) == 2) { //rotate right
+        rotate(nd);
       }
       else nd->height=height(nd);
       return;
@@ -31,8 +31,8 @@ void avl::insert(node *nd,double dta) {
       node *newNode = new node(dta);
       nd->left = newNode;
       newNode->parent = nd;
-      if (std::abs(balanceFactor()) == 2) {
-        rotate(nd->parent);
+      if (std::abs(balanceFactor()) == 2) { //rotate left
+        rotate(nd);
         nd->height = height(nd);
       }
       else nd->height=height(nd);
@@ -73,7 +73,7 @@ void avl::rotate(node* nd) {
     if (balanceFactor(nd->right)==1)
       rotateLeft(nd);
     else { //double left
-      rotateRight(nd->parent);
+      rotateRight(nd->left);
       rotateLeft(nd);
     }   
   }
@@ -82,19 +82,16 @@ void avl::rotate(node* nd) {
       rotateRight(nd);
     }
     else { //double right
-      rotateLeft(nd->left);
+      rotateLeft(nd->right);
       rotateRight(nd);
     }
   }
-  if (balanceFactor()>1 || balanceFactor()<-1)
-    return;
-  //andre is
-  //a faggut
-  //rotate(nd->parent->parent);
 }
 
 void avl::rotateLeft(node* nd) {
+  //if (nd->right == nullptr) return;
   node* tmp = nd->right;
+  //if (tmp==nullptr) return;
   nd->right = tmp->left;
   if (tmp->left != nullptr)
     tmp->left->parent = nd; //reset left child parent
@@ -112,7 +109,9 @@ void avl::rotateLeft(node* nd) {
 
 
 void avl::rotateRight(node* nd) {
+  //if (nd->left==nullptr) return;
   node* tmp = nd->left;
+  //if (tmp==nullptr) return;
   nd->left = tmp->right;
   if (tmp->right != nullptr)
     tmp->right->parent = nd; //reset right child parent
