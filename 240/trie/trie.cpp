@@ -22,10 +22,30 @@ void trie::insert(std::string word)
 		{
 			node* newNode = new node(ALPHA);
 			tmp->array[arrayPos] = newNode;
-			tmp = tmp->array[arrayPos];
 		}
+		tmp = tmp->array[arrayPos];
 	}
 	tmp->wordEnd = true;
+}
+
+node* tmp = someNode
+for (auto ptr : array) {
+	if (ptr!=nullptr)
+	{
+		
+	}
+}
+bool trie::search(std::string word)
+{
+	node* tmp = root;
+	for (auto letter : word)
+	{
+		int arrayPos = getPos(letter);
+		if (arrayPos==nullptr) return false;
+		tmp=tmp->
+	}
+	return true;
+
 }
 
 int trie::getPos(char val)
@@ -33,7 +53,18 @@ int trie::getPos(char val)
 	return (int)val - (int)'a';
 }
 
+void trie::wipeTrie(node* nd) 
+{
+	if (nd==nullptr) return;
+	for (auto letter : nd->array) {
+		wipeTrie(letter);
+	}
+	delete nd;
+}
+
 trie::~trie()
 {
+	if (root==nullptr) return;
+	wipeTrie(root);
 	
 }

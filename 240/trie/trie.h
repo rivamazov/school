@@ -18,6 +18,7 @@ class trie
   unsigned int numWords();
   ~trie();
  private:
+ 	void wipeTrie(node* nd);
   node *root;
 
 };
