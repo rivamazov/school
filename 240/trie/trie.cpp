@@ -7,6 +7,24 @@
 *
 */
 
+void trie::inOrder()
+{
+	if (root==nullptr) return;
+	else inOrder(root);
+}
+
+void trie::inOrder(node* nd) {
+	if (nd->wordEnd) std::cout << word << std::endl;
+	for (int i=0;i<ALPHA;i++) {
+		if (nd->array[i]) {
+			char letter = getLetter(i);
+			word+=letter;
+			inOrder(nd->array[i]);
+			word.erase(word.end()-1);
+		}
+	}
+}
+
 trie::trie()
 {
   root = new node(ALPHA);
@@ -28,29 +46,37 @@ void trie::insert(std::string word)
 	tmp->wordEnd = true;
 }
 
-node* tmp = someNode
+/*
+node* tmp = someNode;
 for (auto ptr : array) {
 	if (ptr!=nullptr)
 	{
 		
 	}
 }
+*/
 bool trie::search(std::string word)
 {
 	node* tmp = root;
 	for (auto letter : word)
 	{
 		int arrayPos = getPos(letter);
-		if (arrayPos==nullptr) return false;
-		tmp=tmp->
+		if (tmp->array[arrayPos]==nullptr) return false;
+		tmp=tmp->array[arrayPos];
 	}
-	return true;
+	if (tmp->wordEnd) return true;
 
 }
+
 
 int trie::getPos(char val)
 {
 	return (int)val - (int)'a';
+}
+
+char trie::getLetter(int val)
+{
+	return (char)(val+(int)'a');
 }
 
 void trie::wipeTrie(node* nd) 

@@ -19,6 +19,7 @@ void heap<T>::perculateUp(unsigned int position) {
 * dont have to do recursive function unless you actually need
 * to do a swap.
 */
+
 template <class T>
 void heap<T>::perculateDown(unsigned int pos) {
 }
