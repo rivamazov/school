@@ -2,6 +2,8 @@
 
 int main()
 {
+	heap<int> miheap;
+	miheap.insert(12);
 
 
 

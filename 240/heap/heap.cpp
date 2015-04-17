@@ -11,6 +11,11 @@ void heap<T>::perculateUp(unsigned int position) {
 	}
 }
 
+template <class T>
+void heap<T>::insert(std::pair<double,T> item) {
+	
+}
+
 /* for min heap
 * if leaf stop
 * look at two children figure out which is the smallest
@@ -22,6 +27,7 @@ void heap<T>::perculateUp(unsigned int position) {
 
 template <class T>
 void heap<T>::perculateDown(unsigned int pos) {
+	//if ()
 }
 
 template <class T>
