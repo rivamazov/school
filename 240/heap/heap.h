@@ -18,7 +18,8 @@ class heap
   heap(unsigned int maxSz,type vsn = MINHEAP);
   void insert(std::pair<double,T> item);
   unsigned int size(){return currentSize;}
-  void setMaxSize(int maxSz);
+  void setMaxSize(int maxSz){maxSize = maxSz;}
+  T kLargestVals(int k);
   template <class U>
   friend std::ostream& operator<<(std::ostream &out,heap<U> &hp);
   T* operator[] (int index);
