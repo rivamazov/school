@@ -20,6 +20,8 @@ int main(int argc, char **argv) {
 	functions fnList = functions_new();
 	readObject(argv[1],fnList);
 	// May need to do something here to find out if a function is reachable from main
+
+
 	
 	functions_report(fnList,true);
 	functions_delete(fnList,true);
@@ -83,6 +85,8 @@ bool readObject(char * objFile,functions fnList) {
 				}
 			}
 			offset=addr - fnStart;
+			function_setStartAddr(current, fnStart);
+			function_setSize(current, offset+1);
 /* DBG printf ("<%s+%03x> %s %s\n",fnName,offset,mnemonic,parms); */
 			// May want to set other attributes of a function here
 			if (0==strncmp(mnemonic,"call",4)) {

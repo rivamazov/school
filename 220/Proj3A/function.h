@@ -28,6 +28,16 @@ typedef struct function_struct * function;
 function function_new(char *name);
 bool function_delete(function fn);
 char * function_getName(function fn);
+
+void * function_getStartAddr(function fn);
+void function_setStartAddr(function fn, void *startAddress);
+
+int function_getSize(function fn);
+void function_setSize(function fn, int sz);
+
+char ** function_getCalledFunctions(function fn);
+char ** function_getCalledByFunctions(function fn);
+
 // Function declarations for other methods go here...
 bool function_report(function fn,char *prefix);
 
