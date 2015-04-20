@@ -50,6 +50,14 @@ int function_getSize(function fn) {
 	return fn->size;
 }
 
+int function_getCalledBySize(function fn) {
+	return fn->calledBySize;
+}
+
+int function_getCalledSize(function fn) {
+	return fn->calledSize;
+}
+
 void function_setSize(function fn, int sz) {
 	fn->size = sz;
 }
@@ -64,6 +72,10 @@ void function_printCalledFunctions(function fn) {
 	printf("%s\n", fn->calledFunctions[fn->calledSize-1]);
 }
 
+char* function_getCalledFunction(function fn, int i) {
+	return fn->calledFunctions[i];
+}
+
 void function_setCalledFunction(function fn, const char* FunctionName) {
 	strcpy(fn->calledFunctions[fn->calledSize],FunctionName);
 	fn->calledSize++;
@@ -76,7 +88,7 @@ void function_printCalledByFunctions(function fn) {
 	for (i=0;i<fn->calledBySize-1;i++) {
 		printf("%s,", fn->calledByFunctions[i]);
 	}
-	printf("%s\n", fn->calledByFunctions[fn->calledBySize]);
+	printf("%s\n", fn->calledByFunctions[fn->calledBySize-1]);
 }
 
 void function_setCalledByFunction(function fn, const char* FunctionName) {
@@ -93,3 +105,9 @@ bool function_report(function fn,char *prefix) {
 	// expand this function report method to print interesting things about this function
 	return true;
 }
+
+bool function_isReachable(function fn) {
+
+}
+
+

@@ -1,5 +1,13 @@
+b functions.c:57
+commands
+p funcName
+p calledFuncName
+end
 
-
+b functions.c:59
+commands
+p calledFunc->name
+end
 #commands
 #p (char*) current->name
 #p (void*) fnStart

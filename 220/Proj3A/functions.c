@@ -48,13 +48,16 @@ bool functions_add(functions fl,function fn) {
 
 void functions_insertCalledByFunctions(functions fl) {
 	int i, j;
+	function tf;
 	for (i=0;i<fl->count;i++) {
-		//for (j=0;j<fl[i]->calledSize;j++) {
-
-		//}
-	}
-			//strcpy(fl[i]->calledByFunctions[j], 
-	
+		tf=*(fl->fnVecPtr+i);
+		for (j=0;j<function_getCalledSize(tf);j++) {
+			char* funcName=function_getName(tf);
+			char* calledFuncName=function_getCalledFunction(tf, j);
+			function* calledFunc = functions_nameToFunction(fl, calledFuncName);
+			function_setCalledByFunction(*calledFunc, funcName);
+		}
+	} 
 }
 
 int functions_getCount(functions fl) {
@@ -65,13 +68,25 @@ bool functions_report(functions fl,bool reachable) {
 	int i,j;
 	char prefix[16];
 	printf("Function list has %d functions...\n",fl->count);
-	//functions_insertCalledByFunctions();
+	functions_insertCalledByFunctions(fl);
 	function tf;
 	for(i=0,j=1; i<fl->count; i++) {
 		tf=*(fl->fnVecPtr+i);
 		// May need to figure out if this function is reachable here
-		sprintf(prefix,"%3d. ",j++);
-		function_report(tf,prefix);
+		if (function_isReachable(tf)) {
+			sprintf(prefix,"%3d. ",j++);
+			function_report(tf,prefix);
+		}
 	}
 	return true;
+}
+
+function functions_nameToFunction(functions fl, char *fnName) { //finds function by name
+	int i;
+	function tf;
+	for (i=0;i<fl->count;i++) {
+		tf=*(fl->fnVecPtr+i);
+		if (strcmp(function_getName(tf),fnName)==0)
+			return &tf;
+	}
 }

@@ -103,11 +103,7 @@ bool readObject(char * objFile,functions fnList) {
 
 
 					function_setCalledFunction(current, calledFunc);
-					//functions_insertCalledByFunction(calledAddr, current->getName());
-					//function_setCalledByFunction(calledAddr, current->getName());
-
 				} else {
-					printf("%s",parms);
 /* DBG printf("Not sure what is being called in %s\n",parms); */
 				}
 			}
