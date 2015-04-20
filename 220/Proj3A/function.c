@@ -67,7 +67,7 @@ void function_printCalledFunctions(function fn) {
 	int i;
 	printf("\tCalled Functions\t: ");
 	for (i=0;i<fn->calledSize-1;i++) {
-		printf("%s,", fn->calledFunctions[i]);
+		printf("%s, ", fn->calledFunctions[i]);
 	}
 	printf("%s\n", fn->calledFunctions[fn->calledSize-1]);
 }
@@ -77,6 +77,11 @@ char* function_getCalledFunction(function fn, int i) {
 }
 
 void function_setCalledFunction(function fn, const char* FunctionName) {
+	int i;
+	for (i=0;i<fn->calledSize;i++) {
+		if (strcmp(FunctionName, fn->calledFunctions[i])==0)
+			return;
+	}
 	strcpy(fn->calledFunctions[fn->calledSize],FunctionName);
 	fn->calledSize++;
 }
@@ -86,7 +91,7 @@ void function_printCalledByFunctions(function fn) {
 	int i;
 	printf("\tCalled By Functions\t: ");
 	for (i=0;i<fn->calledBySize-1;i++) {
-		printf("%s,", fn->calledByFunctions[i]);
+		printf("%s, ", fn->calledByFunctions[i]);
 	}
 	printf("%s\n", fn->calledByFunctions[fn->calledBySize-1]);
 }
@@ -107,6 +112,7 @@ bool function_report(function fn,char *prefix) {
 }
 
 bool function_isReachable(function fn) {
+	return true;
 
 }
 
