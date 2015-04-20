@@ -103,7 +103,7 @@ bool readObject(char * objFile,functions fnList) {
 
 
 					function_setCalledFunction(current, calledFunc);
-				} else {
+				} else {;
 /* DBG printf("Not sure what is being called in %s\n",parms); */
 				}
 			}

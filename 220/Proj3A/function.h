@@ -27,6 +27,10 @@ typedef struct function_struct * function;
 
 function function_new(char *name);
 bool function_delete(function fn);
+
+bool function_isReached(function fn);
+void function_setIsReached(function fn, bool boolVal);
+
 char * function_getName(function fn);
 
 void * function_getStartAddr(function fn);
@@ -44,7 +48,10 @@ void function_setCalledFunction(function fn, const char* FunctionName);
 void function_printCalledByFunctions(function fn);
 void function_setCalledByFunction(function fn, const char* FunctionName);
 
+bool function_reachableByMain(function fn);
+
 // Function declarations for other methods go here...
 bool function_report(function fn,char *prefix);
+bool function_containsFuncInArray(char StringArray[50][256], const char* item, int size);
 
 #endif

@@ -54,8 +54,9 @@ void functions_insertCalledByFunctions(functions fl) {
 		for (j=0;j<function_getCalledSize(tf);j++) {
 			char* funcName=function_getName(tf);
 			char* calledFuncName=function_getCalledFunction(tf, j);
-			function* calledFunc = functions_nameToFunction(fl, calledFuncName);
-			function_setCalledByFunction(*calledFunc, funcName);
+			function calledFunc;
+			calledFunc=*(functions_nameToFunction(fl, calledFuncName));
+			function_setCalledByFunction(calledFunc, funcName);
 		}
 	} 
 }
@@ -72,21 +73,31 @@ bool functions_report(functions fl,bool reachable) {
 	function tf;
 	for(i=0,j=1; i<fl->count; i++) {
 		tf=*(fl->fnVecPtr+i);
-		// May need to figure out if this function is reachable here
-		if (function_isReachable(tf)) {
+		if (!reachable) {
 			sprintf(prefix,"%3d. ",j++);
 			function_report(tf,prefix);
+		}
+		else { //print reachable functions
+				if (function_reachableByMain(tf)) {
+					sprintf(prefix,"%3d. ",j++);
+					function_report(tf, prefix);
+					function_setIsReached(tf, true);
+
+				}
 		}
 	}
 	return true;
 }
 
-function functions_nameToFunction(functions fl, char *fnName) { //finds function by name
+function * functions_nameToFunction(functions fl, char *fnName) { //finds function by name
 	int i;
 	function tf;
 	for (i=0;i<fl->count;i++) {
 		tf=*(fl->fnVecPtr+i);
 		if (strcmp(function_getName(tf),fnName)==0)
-			return &tf;
+			return fl->fnVecPtr+i;
 	}
+	return NULL;
 }
+
+
