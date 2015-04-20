@@ -39,7 +39,7 @@ void function_printCalledFunctions(function fn);
 void function_setCalledFunction(function fn, const char* FunctionName);
 
 void function_printCalledByFunctions(function fn);
-void function_setCalledByFunctions(function fn, const char* FunctionName);
+void function_setCalledByFunctions(void* FuncAddress, const char* FunctionName);
 
 // Function declarations for other methods go here...
 bool function_report(function fn,char *prefix);

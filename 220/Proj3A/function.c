@@ -25,11 +25,9 @@ function function_new(char *name) {
 	return this;
 }
 
+
 bool function_delete(function fn) {
 	free(fn->name);
-	free(fn->startAddr);
-	free(fn->calledFunctions);
-	free(fn->calledByFunctions);
 	fn->size=0;
 	//Free other alocated sub-fields here
 	free(fn);
@@ -44,7 +42,7 @@ void * function_getStartAddr(function fn) {
 	return fn->startAddr;
 }
 
-void function_setStartAddr(function fn, void* StartAddr){
+void function_setStartAddr(function fn, void* StartAddr) {
 	fn->startAddr=StartAddr;
 }
 

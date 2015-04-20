@@ -86,10 +86,10 @@ bool readObject(char * objFile,functions fnList) {
 				}
 			}
 			offset=addr - fnStart;
-			function_setStartAddr(current, fnStart);
 /* DBG printf ("<%s+%03x> %s %s\n",fnName,offset,mnemonic,parms); */
 			// May want to set other attributes of a function here
-			if (0==strncmp(mnemonic,"call",4)) {
+
+			if (0==strncmp(mnemonic,"call",4)) { //if call occurs
 				char calledFunc[256]="";
 				char * parmPtr=parms;
 				void * calledAddr;
@@ -100,14 +100,18 @@ bool readObject(char * objFile,functions fnList) {
 				if (2==sscanf(parmPtr,"%p <%[^>]>",&calledAddr,calledFunc)) {
 /* DBG  printf("Calling %s @ %p\n",calledFunc,calledAddr); */
 					// Handle calling of lower level functions from here
-					
+
 
 					function_setCalledFunction(current, calledFunc);
+					//functions_insertCalledByFunction(calledAddr, current->getName());
+					//function_setCalledByFunction(calledAddr, current->getName());
 
 				} else {
+					printf("%s",parms);
 /* DBG printf("Not sure what is being called in %s\n",parms); */
 				}
 			}
+			function_setStartAddr(current, fnStart);
 			function_setSize(current, offset+1);			
 		}
 	}

@@ -33,6 +33,7 @@ bool functions_delete(functions fl,bool deleteMembers);
 bool functions_add(functions fl,function fn);
 function functions_find(functions fl,char * fnName);
 function functions_next(functions fl,function fn);
+void functions_insertCalledByFunctions();
 
 int functions_getCount(functions fl);
 

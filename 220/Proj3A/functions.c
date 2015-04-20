@@ -46,6 +46,17 @@ bool functions_add(functions fl,function fn) {
 
 // Other method definitions go here
 
+void functions_insertCalledByFunctions(functions fl) {
+	int i, j;
+	for (i=0;i<fl->count;i++) {
+		//for (j=0;j<fl[i]->calledSize;j++) {
+
+		//}
+	}
+			//strcpy(fl[i]->calledByFunctions[j], 
+	
+}
+
 int functions_getCount(functions fl) {
 	return fl->count;
 }
@@ -54,6 +65,7 @@ bool functions_report(functions fl,bool reachable) {
 	int i,j;
 	char prefix[16];
 	printf("Function list has %d functions...\n",fl->count);
+	//functions_insertCalledByFunctions();
 	function tf;
 	for(i=0,j=1; i<fl->count; i++) {
 		tf=*(fl->fnVecPtr+i);
