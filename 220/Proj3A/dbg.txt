@@ -1,3 +1,8 @@
-b main
+
+
+#commands
+#p (char*) current->name
+#p (void*) fnStart
+#p (void*) addr
+#end
 run xmpCmd
-continue
