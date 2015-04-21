@@ -28,8 +28,8 @@ typedef struct function_struct * function;
 function function_new(char *name);
 bool function_delete(function fn);
 
-bool function_isReached(function fn);
-void function_setIsReached(function fn, bool boolVal);
+bool function_discovered(function fn);
+void function_setDiscovered(function fn, bool boolVal);
 
 char * function_getName(function fn);
 

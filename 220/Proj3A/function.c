@@ -13,7 +13,8 @@ struct function_struct {
 	int calledSize;
 	char calledByFunctions[50][256];
 	int calledBySize;
-	bool isReached;
+	bool discovered;
+	bool reachable;
 };
 
 function function_new(char *name) {
@@ -22,18 +23,20 @@ function function_new(char *name) {
 	this->size=0;
 	this->calledSize=0;
 	this->calledBySize=0;
-	this->isReached=false;
+	this->discovered=false;
+	this->reachable=0;
 /* DBG	printf("Created function object for function %s\n",name); */
 	return this;
 }
 
-bool function_isReached(function fn) {
-	return fn->isReached;
+bool function_discovered(function fn) {
+	return fn->discovered;
 }
 
-void function_setIsReached(function fn, bool boolVal) {
-	fn->isReached = boolVal;
+void function_setDiscovered(function fn, bool boolVal) {
+	fn->discovered = boolVal;
 }
+
 
 bool function_delete(function fn) {
 	free(fn->name);

@@ -77,17 +77,53 @@ bool functions_report(functions fl,bool reachable) {
 			sprintf(prefix,"%3d. ",j++);
 			function_report(tf,prefix);
 		}
+	}
+
+		/*
 		else { //print reachable functions
-				if (function_reachableByMain(tf)) {
-					sprintf(prefix,"%3d. ",j++);
-					function_report(tf, prefix);
-					function_setIsReached(tf, true);
+				if (strcmp(function_getName(tf), "main")==0) {
+					int k, j, l;
+					function *tmp;
+					function *currentFunc = functions_nameToFunction(fl, "main");
+					function_setDiscovered(*currentFunc, true);
+					while (true) {
+						for (k=0;k<function_getCalledSize(*currentFunc);k++) {
+							char* calledFuncName = function_getCalledFunction(*currentFunc, k);
+
+							if (!function_discovered(*tmp)) {
+								sprintf(prefix,"%3d. ",j++);
+								function_report(tf, prefix);
+								function_setDiscovered(tf, true);
+							}
+						}
+						tmp = currentFunc;
+						for (l=0;l<function_getCalledBySize(*currentFunc);l++) {
+							char* calledFuncName = function_getCalledByFunction(*currentFunc, l);
+
+							if (!function_discovered(*tmp)) {
+								sprintf(prefix,"%3d. ",j++);
+								function_report(tf, prefix);
+								function_setDiscovered(tf, true);
+							}
+						}
+					}
 
 				}
+				else if (function_reachableByMain(tf) && !function_discovered(tf)) { //find main
+					sprintf(prefix,"%3d. ",j++);
+					function_report(tf, prefix);
+					function_setDiscovered(tf, true);
+				}
+
+				else if (!function_reachableByMain(tf)) { //find functions not connected to main
+					function_setDiscovered(tf, true);
+				}
+				
 		}
-	}
+	} */
 	return true;
 }
+
 
 function * functions_nameToFunction(functions fl, char *fnName) { //finds function by name
 	int i;
@@ -98,6 +134,17 @@ function * functions_nameToFunction(functions fl, char *fnName) { //finds functi
 			return fl->fnVecPtr+i;
 	}
 	return NULL;
+}
+
+void functions_setReachables(functions fl) {
+	int i;
+	function tf;
+	for (i=0;fl->fnVecPtr+i;i++) {
+		tf=*(fl->fnVecPtr+i);
+		if (function_reachableByMain(tf)) {
+			functions_setReachable(tf);
+		}
+	}
 }
 
 
