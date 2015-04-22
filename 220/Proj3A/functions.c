@@ -55,7 +55,7 @@ void functions_insertCalledByFunctions(functions fl) {
 			char* funcName=function_getName(tf);
 			char* calledFuncName=function_getCalledFunction(tf, j);
 			function calledFunc;
-			calledFunc=*(functions_nameToFunction(fl, calledFuncName));
+			calledFunc=(functions_nameToFunction(fl, calledFuncName));
 			function_setCalledByFunction(calledFunc, funcName);
 		}
 	} 
@@ -77,74 +77,61 @@ bool functions_report(functions fl,bool reachable) {
 			sprintf(prefix,"%3d. ",j++);
 			function_report(tf,prefix);
 		}
-	}
-
-		/*
-		else { //print reachable functions
-				if (strcmp(function_getName(tf), "main")==0) {
-					int k, j, l;
-					function *tmp;
-					function *currentFunc = functions_nameToFunction(fl, "main");
-					function_setDiscovered(*currentFunc, true);
-					while (true) {
-						for (k=0;k<function_getCalledSize(*currentFunc);k++) {
-							char* calledFuncName = function_getCalledFunction(*currentFunc, k);
-
-							if (!function_discovered(*tmp)) {
-								sprintf(prefix,"%3d. ",j++);
-								function_report(tf, prefix);
-								function_setDiscovered(tf, true);
-							}
-						}
-						tmp = currentFunc;
-						for (l=0;l<function_getCalledBySize(*currentFunc);l++) {
-							char* calledFuncName = function_getCalledByFunction(*currentFunc, l);
-
-							if (!function_discovered(*tmp)) {
-								sprintf(prefix,"%3d. ",j++);
-								function_report(tf, prefix);
-								function_setDiscovered(tf, true);
-							}
-						}
-					}
-
-				}
-				else if (function_reachableByMain(tf) && !function_discovered(tf)) { //find main
+		else {
+			if (function_calledByMain(tf) || strcmp(function_getName(tf),"main")==0) {
+				if (!function_discovered(tf)) {
 					sprintf(prefix,"%3d. ",j++);
-					function_report(tf, prefix);
-					function_setDiscovered(tf, true);
+					function_report(tf,prefix);
+					function_setDiscovered(tf);
 				}
-
-				else if (!function_reachableByMain(tf)) { //find functions not connected to main
-					function_setDiscovered(tf, true);
+				j = functions_printCalled(fl, tf, prefix, j);
+			}
+			if (strcmp(function_getName(tf),"main")==0) {
+				j = functions_printCalled(fl, tf, prefix, j);
+			}
+			if (function_getReachable(tf)) {
+				if (!function_discovered(tf)) {
+					sprintf(prefix,"%3d. ",j++);
+					function_report(tf,prefix);
+					function_setDiscovered(tf);
 				}
-				
+				j = functions_printCalled(fl, tf, prefix, j);
+			}
 		}
-	} */
+	}
 	return true;
 }
 
+int functions_printCalled(functions fl, function fn, char* prefix, int j) {
+	int i, k;
+	function_setReachable(fn);
+	for (i=0;i<function_getCalledSize(fn);i++) {
+		char* funcName = function_getCalledFunction(fn, i);
+		function tf = functions_nameToFunction(fl, funcName);
+		function_setReachable(tf);
+		if (!function_discovered(tf)) {
+			sprintf(prefix,"%3d. ",j++);
+			function_report(tf,prefix);
+			function_setDiscovered(tf);
+		}
+		for (k=0;k<function_getCalledSize(tf);k++) {
+			char* calledFuncName = function_getCalledFunction(tf, k);
+			function calledtf = functions_nameToFunction(fl, calledFuncName);
+			function_setReachable(calledtf);
+		}
+	}
+	return j;
+}
 
-function * functions_nameToFunction(functions fl, char *fnName) { //finds function by name
+function functions_nameToFunction(functions fl, char *fnName) { //finds function by name
 	int i;
 	function tf;
 	for (i=0;i<fl->count;i++) {
 		tf=*(fl->fnVecPtr+i);
 		if (strcmp(function_getName(tf),fnName)==0)
-			return fl->fnVecPtr+i;
+			return tf;
 	}
 	return NULL;
-}
-
-void functions_setReachables(functions fl) {
-	int i;
-	function tf;
-	for (i=0;fl->fnVecPtr+i;i++) {
-		tf=*(fl->fnVecPtr+i);
-		if (function_reachableByMain(tf)) {
-			functions_setReachable(tf);
-		}
-	}
 }
 
 

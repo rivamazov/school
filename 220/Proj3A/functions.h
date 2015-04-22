@@ -38,6 +38,8 @@ void functions_insertCalledByFunctions();
 int functions_getCount(functions fl);
 
 bool functions_report(functions fl,bool reachable);
-function * functions_nameToFunction(functions fl, char * fnName);
+void functions_findAndPrintReachable(functions fl, function fn, char* prefix, int j);
+int functions_printCalled(functions fl, function fn, char* prefix, int j);
+function functions_nameToFunction(functions fl, char * fnName);
 
 #endif

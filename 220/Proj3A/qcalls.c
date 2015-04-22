@@ -20,12 +20,9 @@ int main(int argc, char **argv) {
 	functions fnList = functions_new();
 	readObject(argv[1],fnList);
 	// May need to do something here to find out if a function is reachable from main
-	functions_setReachables();
-
-
 	
-	functions_report(fnList,false);
-	functions_delete(fnList,false);
+	functions_report(fnList,true);
+	functions_delete(fnList,true);
 	exit(1);
 }
 

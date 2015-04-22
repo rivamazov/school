@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define MAXCALLEDFUNCS = 50;
+#define MAXCALLEDFUNCS 50;
 
 struct function_struct {
 	char *name;
@@ -24,7 +24,7 @@ function function_new(char *name) {
 	this->calledSize=0;
 	this->calledBySize=0;
 	this->discovered=false;
-	this->reachable=0;
+	this->reachable=false;
 /* DBG	printf("Created function object for function %s\n",name); */
 	return this;
 }
@@ -33,8 +33,8 @@ bool function_discovered(function fn) {
 	return fn->discovered;
 }
 
-void function_setDiscovered(function fn, bool boolVal) {
-	fn->discovered = boolVal;
+void function_setDiscovered(function fn) {
+	fn->discovered = true;
 }
 
 
@@ -77,7 +77,7 @@ void function_setSize(function fn, int sz) {
 void function_printCalledFunctions(function fn) {
 	if (fn->calledSize==0) return;
 	int i;
-	printf("\tCalled Functions   : ");
+	printf("        Called Functions   : ");
 	for (i=0;i<fn->calledSize-1;i++) {
 		printf("%s, ", fn->calledFunctions[i]);
 	}
@@ -99,7 +99,7 @@ void function_setCalledFunction(function fn, const char* FunctionName) {
 void function_printCalledByFunctions(function fn) {
 	if (fn->calledBySize==0) return;
 	int i;
-	printf("\tCalled By Functions: ");
+	printf("        Called By Functions: ");
 	for (i=0;i<fn->calledBySize-1;i++) {
 		printf("%s, ", fn->calledByFunctions[i]);
 	}
@@ -112,24 +112,41 @@ void function_setCalledByFunction(function fn, const char* FunctionName) {
 	fn->calledBySize++;
 }
 
-bool function_reachableByMain(function fn) {
+char* function_getCalledByFunction(function fn, int i) {
+	return fn->calledByFunctions[i];
+}
+
+bool function_calledByMain(function fn) {
 	if (function_containsFuncInArray(fn->calledByFunctions, 
 		"main", fn->calledBySize)) {
+		return true;
+	}
+	if (function_containsFuncInArray(fn->calledFunctions,
+		"main", fn->calledSize)) {
 		return true;
 	}
 	else return false;
 }
 
+void function_setReachable(function fn) {
+	fn->reachable=true;
+}
+
+bool function_getReachable(function fn) {
+	return fn->reachable;
+}
 
 
 // Other function methods go here
 
 bool function_report(function fn,char *prefix) {
-	printf("%sFunction @ %p size=\t%i %s\n",prefix,fn->startAddr,fn->size,fn->name);
+	printf("%sFunction @ %p size= %i %s\n",prefix,fn->startAddr,fn->size,fn->name);
 	function_printCalledFunctions(fn);
 	function_printCalledByFunctions(fn);
 	return true;
 }
+
+
 
 
 bool function_containsFuncInArray(char StringArray[50][256], const char *item, int size) {
