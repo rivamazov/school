@@ -42,8 +42,9 @@ bool readObject(char * objFile,functions fnList) {
 	bool inFunction=false;
 	void *addr;
 	void *fnStart;
-	void *prevFunctionStart = 0;
 	char fnName[1024];
+	int totalObjBytes = 0;
+	
 	function current;
 
 	while(fgets(dumpLine,sizeof(dumpLine),pipe)) {
@@ -52,6 +53,7 @@ bool readObject(char * objFile,functions fnList) {
 		if (2==sscanf(dumpLine,"%p <%[^>]>:\n",&addr,fnName)) {
 			inFunction=true;
 			fnStart=addr;
+			totalObjBytes = 0;
 /* DBG printf("In function: %s which starts at %p\n",fnName,fnStart); */
 			current = function_new(fnName);
 			functions_add(fnList,current);
@@ -65,9 +67,11 @@ bool readObject(char * objFile,functions fnList) {
 			unsigned char opCode;
 			char mnemonic[20]="???";
 			char parms[100]="";
-			int offset,nr;
+			//int offset
+			int nr;
 			int objBytes=0;
-			int totalObjBytes=0;
+
+
 			char *rest;
 			if (1==sscanf(dumpLine," %p:\t%n",&addr,&nr)) {
 				rest=dumpLine+nr;
@@ -79,13 +83,14 @@ bool readObject(char * objFile,functions fnList) {
 						l--;
 					}
 					objBytes = (strlen(objText)+1)/3;
+					totalObjBytes+=objBytes;
+					
 					sscanf(objText,"%02hhx",&opCode);
 					rest=rest+nr;
 					sscanf(rest,"%s %[^\n]\n",mnemonic,parms);
 				}
 			}
-			offset=addr - fnStart;
-			totalObjBytes+=objBytes+nr;
+			//offset=addr - fnStart;
 /* DBG printf ("<%s+%03x> %s %s\n",fnName,offset,mnemonic,parms); */
 			// May want to set other attributes of a function here
 
@@ -104,12 +109,11 @@ bool readObject(char * objFile,functions fnList) {
 
 					function_setCalledFunction(current, calledFunc);
 				} else {
-					function_setSize(current, offset+1);
 /* DBG printf("Not sure what is being called in %s\n",parms); */
 				}
 			}
 			function_setStartAddr(current, fnStart);
-			function_setSize(current, offset+1);			
+			function_setSize(current, totalObjBytes);			
 		}
 	}
 	pclose(pipe);

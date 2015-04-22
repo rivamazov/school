@@ -1,7 +1,6 @@
-b qcalls.c:88
+b qcalls.c:83
 commands
 p current->name
-p offset
-p totalObjBytes
+p objBytes
 end
 run xmpCmd
