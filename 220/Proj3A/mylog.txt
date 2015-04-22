@@ -1,9 +1,9 @@
 Function list has 35 functions...
-  1. Function @ 0x400410 size= 12 printf@plt
+  1. Function @ 0x400410 size=  12 printf@plt
         Called By Functions: main
-  2. Function @ 0x40052d size= 38 main
+  2. Function @ 0x40052d size=  38 main
         Called Functions   : testFn, printf@plt
-  3. Function @ 0x401bdc size= 32 testFn
+  3. Function @ 0x401bdc size=  32 testFn
         Called Functions   : f0
         Called By Functions: main
   4. Function @ 0x400553 size= 316 f0

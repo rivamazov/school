@@ -140,7 +140,14 @@ bool function_getReachable(function fn) {
 // Other function methods go here
 
 bool function_report(function fn,char *prefix) {
-	printf("%sFunction @ %p size= %i %s\n",prefix,fn->startAddr,fn->size,fn->name);
+	if (function_calledByMain(fn)
+		|| strcmp(function_getName(fn),"main")==0) {
+		printf("%sFunction @ %p size=  %i %s\n",prefix,fn->startAddr,fn->size,fn->name);
+
+	}
+	else {
+		printf("%sFunction @ %p size= %i %s\n",prefix,fn->startAddr,fn->size,fn->name);
+	}
 	function_printCalledFunctions(fn);
 	function_printCalledByFunctions(fn);
 	return true;

@@ -67,6 +67,7 @@ bool readObject(char * objFile,functions fnList) {
 			char parms[100]="";
 			int offset,nr;
 			int objBytes=0;
+			int totalObjBytes=0;
 			char *rest;
 			if (1==sscanf(dumpLine," %p:\t%n",&addr,&nr)) {
 				rest=dumpLine+nr;
@@ -84,6 +85,7 @@ bool readObject(char * objFile,functions fnList) {
 				}
 			}
 			offset=addr - fnStart;
+			totalObjBytes+=objBytes+nr;
 /* DBG printf ("<%s+%03x> %s %s\n",fnName,offset,mnemonic,parms); */
 			// May want to set other attributes of a function here
 
@@ -101,7 +103,8 @@ bool readObject(char * objFile,functions fnList) {
 
 
 					function_setCalledFunction(current, calledFunc);
-				} else {;
+				} else {
+					function_setSize(current, offset+1);
 /* DBG printf("Not sure what is being called in %s\n",parms); */
 				}
 			}

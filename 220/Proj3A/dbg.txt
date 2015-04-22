@@ -1,1 +1,7 @@
+b qcalls.c:88
+commands
+p current->name
+p offset
+p totalObjBytes
+end
 run xmpCmd
