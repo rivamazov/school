@@ -1,2 +1,2 @@
-- 240 is a data structures and algorithms class in C++
-- 220 is an operating systems class that covered c and some assembly
+- 240 is a data structures and algorithms class in c++
+- 220 is an operating systems class with c and some assembly
